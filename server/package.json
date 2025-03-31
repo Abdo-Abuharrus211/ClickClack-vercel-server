@@ -1,7 +1,6 @@
 {
-  "name": "clickclackcock",
+  "name": "click-clack-vercel-server",
   "version": "1.0.0",
-  "description": "",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
@@ -25,5 +24,7 @@
     "swagger-autogen": "^2.23.7",
     "swagger-ui-express": "^5.0.1"
   },
-  "type": "module"
+  "type": "module",
+  "devDependencies": {},
+  "description": ""
 }
