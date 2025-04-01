@@ -76,7 +76,7 @@ export async function signup(req, res) {
 
     response.data.userid = userid;
     const SECRET_KEY = process.env.JWT_SECRET_KEY;
-    const token = jwt.sign({userid, isAdmin: false }, SECRET_KEY, { expiresIn: "24h" });
+    const token = jwt.sign({ userid, isAdmin: false }, SECRET_KEY, { expiresIn: "24h" });
     response.message = lang("SignupSuccess");
     setJWTCookie(res, token);
   } catch (error) {
@@ -124,16 +124,16 @@ export async function login(req, res) {
     WHERE email = ${req.body.email};
   `;
 
-  if (!user){
+  if (!user) {
     response.result = 1;
     response.error = lang("LoginUserNotFound");
     res.status(404).json(response);
     console.log("Failed to log in User not found 404!")
     return;
   }
-  
+
   const isValidPassword = await bcrypt.compare(req.body.password, user.password_hash);
-  if (!isValidPassword){
+  if (!isValidPassword) {
     response.result = 1;
     response.message = lang("LoginPasswordNotMatched");
     res.status(401).json(response);
@@ -146,7 +146,7 @@ export async function login(req, res) {
   const token = jwt.sign({ userid: user.userid, isAdmin: user.role == "admin" }, SECRET_KEY, { expiresIn: "24h" });
   response.message = lang("LoginSuccess");
   setJWTCookie(res, token)
-  
+
   res.json(response);
 }
 
@@ -161,7 +161,7 @@ export async function isAuthenticated(req, res) {
     error: '',
     received: ''
   };
-  
+
   const token = req.cookies.token;
 
   if (!token) {
@@ -202,7 +202,7 @@ export async function logout(req, res) {
 export function middleware(req, res, next) {
   try {
     const token = req.cookies.token;
-    
+
     if (!token) {
       res.status(401).json({ message: lang("UserUnauthorizedNoToken") });
       return;
@@ -232,24 +232,40 @@ export function adminMiddleware(req, res, next) {
 }
 
 // function setJWTCookie(res, token) {
+//   console.log("Setting Token 🪙🪙🪙");
+//   console.log(`Secure mode: ${process.env.ENVIRONMENT !== 'dev'}`);
+//   res.cookie('token', token, {
+//     httpOnly: true,
+//     secure: process.env.ENVIRONMENT !== 'dev',
+//     sameSite: 'None', //  a must for cross origin cookies
+//     path: '/',
+//     domain: 'click-clack-vercel-server.vercel.app',
+//     partitioned: true,
+//     maxAge: 86400000, // milliseconds
+//   });
+// }
+
+// function setJWTCookie(res, token) {
+//   console.log("Setting Token 🪙🪙🪙");
+//   console.log(`Secure mode: ${process.env.ENVIRONMENT !== 'dev'}`);
 //   res.cookie("token", token, {
 //     httpOnly: true,
 //     secure: process.env.ENVIRONMENT !== "dev",
-//     sameSite: "None",   // Required for cross-origin cookies
-//     // partitioned: true,
 //     maxAge: 86400000 // 24 hours
 //   });
 // }
+
 function setJWTCookie(res, token) {
   console.log("Setting Token 🪙🪙🪙");
   console.log(`Secure mode: ${process.env.ENVIRONMENT !== 'dev'}`);
   res.cookie('token', token, {
-      httpOnly: true,
-      secure: process.env.ENVIRONMENT !== 'dev',
-      sameSite: 'None', //  a must for cross origin cookies
-      path: '/',
-      // domain: 'web-w9x2a113zzck.up-de-fra1-k8s-1.apps.run-on-seenode.com',
-      partitioned: true,
-      maxAge: 86400000, // milliseconds
+    httpOnly: true,
+    secure: process.env.ENVIRONMENT !== 'dev',
+    sameSite: 'None', //  a must for cross origin cookies
+    path: '/',
+    domain: '.vercel.app', // <--- CHANGED THIS
+    partitioned: true,
+    maxAge: 86400000, // milliseconds
   });
 }
+
