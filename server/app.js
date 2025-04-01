@@ -27,7 +27,6 @@ app.use('/doc', swaggerUi.serve, swaggerUi.setup(swaggerDocument));
 const allowedOrigins = [
   "https://click-clack-lime.vercel.app",
   "https://clickclack.aabuharrus.dev",
-  "https://api.clickclack.aabuharrus.dev", 
   "http://localhost:3000"
 ];
 
