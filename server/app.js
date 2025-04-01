@@ -28,7 +28,6 @@ app.use(bodyParser.json()) // for parsing application/json
 app.use(cookieParser()); // enables reading cookies from `req.cookies`
 app.use((req, res, next) => { // CORS
   res.header("Access-Control-Allow-Origin", "https://click-clack-lime.vercel.app"); // Allow all origins (*), change for production
-  res.header("Access-Control-Allow-Origin", ["https://click-clack-lime.vercel.app", "https://web-w9x2a113zzck.up-de-fra1-k8s-1.apps.run-on-seenode.com"]); // Allow all origins (*), change for production
   res.header("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE, OPTIONS"); // Allowed methods
   // res.header("Access-Control-Allow-Headers", "Content-Type, Authorization"); // Allowed headers
   res.header("Access-Control-Allow-Credentials", "true"); // Allow credentials (cookies, Authorization header)
@@ -36,14 +35,14 @@ app.use((req, res, next) => { // CORS
 
   // Automatically respond to OPTIONS (preflight) requests
   if (req.method === "OPTIONS") {
-    res.header(204,{
-      "Access-Control-Allow-Origin": "https://click-clack-lime.vercel.app", 
-      "Access-Control-Allow-Methods": "GET, POST, PUT, DELETE, OPTIONS", 
-      "Access-Control-Allow-Headers": "Content-Type, Authorization", 
-      "Access-Control-Allow-Credentials": "true", 
-      "Access-Control-Expose-Headers": "Set-Cookie", 
-    });
-    // res.header(204).end();
+    // res.header(204,{
+    //   "Access-Control-Allow-Origin": "https://click-clack-lime.vercel.app", 
+    //   "Access-Control-Allow-Methods": "GET, POST, PUT, DELETE, OPTIONS", 
+    //   "Access-Control-Allow-Headers": "Content-Type, Authorization", 
+    //   "Access-Control-Allow-Credentials": "true", 
+    //   "Access-Control-Expose-Headers": "Set-Cookie", 
+    // });
+    res.header(204).end();
   }
   next();
 });

@@ -242,14 +242,13 @@ export function adminMiddleware(req, res, next) {
 // }
 function setJWTCookie(res, token) {
   console.log("Setting Token 🪙🪙🪙");
-  console.log(`Prod secure verified? ${process.env.ENVIRONMENT !== 'dev'} cuz the value is ${process.env.ENVIRONMENT}`);
   console.log(`Secure mode: ${process.env.ENVIRONMENT !== 'dev'}`);
   res.cookie('token', token, {
       httpOnly: true,
       secure: process.env.ENVIRONMENT !== 'dev',
       sameSite: 'None', //  a must for cross origin cookies
       path: '/',
-      domain: 'web-w9x2a113zzck.up-de-fra1-k8s-1.apps.run-on-seenode.com',
+      // domain: 'web-w9x2a113zzck.up-de-fra1-k8s-1.apps.run-on-seenode.com',
       partitioned: true,
       maxAge: 86400000, // milliseconds
   });
