@@ -3,7 +3,6 @@ import Joi from 'joi'
 import bcrypt from 'bcrypt';
 import lang from './lang/en.js';
 import jwt from 'jsonwebtoken';
-import { json } from 'body-parser';
 
 
 export async function signup(req, res) {
