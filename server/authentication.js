@@ -263,7 +263,7 @@ function setJWTCookie(res, token) {
     secure: process.env.ENVIRONMENT !== 'dev',
     sameSite: 'None', //  a must for cross origin cookies
     path: '/',
-    domain: '.vercel.app', // <--- CHANGED THIS
+    domain: 'click-clack-vercel-server.vercel.app',
     partitioned: true,
     maxAge: 86400000, // milliseconds
   });
