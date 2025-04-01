@@ -146,8 +146,7 @@ export async function login(req, res) {
   const token = jwt.sign({ userid: user.userid, isAdmin: user.role == "admin" }, SECRET_KEY, { expiresIn: "24h" });
   response.message = lang("LoginSuccess");
   setJWTCookie(res, token)
-  console.log(`Login server func📦📦📦 ${JSON.stringify(res)}`)
-  console.log(`The response 📃📃  ${response}`)
+  console.log(`Login server func📦📦📦 ${JSON.stringify(response)}`)
   res.json(response);
 }
 
