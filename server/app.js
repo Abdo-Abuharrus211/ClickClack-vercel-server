@@ -85,6 +85,7 @@ app.post(`${API_PREFIX}/auth/login/`, async (req, res) => {
   try {
     await auth.login(req, res);
   } catch (error) {
+    console.log(`Server error here in login endpoint: ${error}`) 
     serverError(res, error)
   }
 });
