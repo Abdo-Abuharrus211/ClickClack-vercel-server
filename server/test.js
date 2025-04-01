@@ -13,14 +13,22 @@ export async function getPreviousPrompts(req, res) {
 
   try {
     const result = await sql`
-      SELECT prompts.promptid, prompts.text, prompts.difficulty, prompts.theme, tests.date
-      FROM prompts
-      JOIN tests ON prompts.promptid = tests.promptid
-      WHERE tests.userid = ${req.userid}
-      ORDER BY tests.date DESC;
+      SELECT *
+      FROM (
+        SELECT DISTINCT ON (prompts.promptid)
+          prompts.promptid,
+          prompts.text,
+          prompts.difficulty,
+          prompts.theme,
+          tests.date
+        FROM prompts
+        JOIN tests ON prompts.promptid = tests.promptid
+        WHERE tests.userid = ${req.userid}
+        ORDER BY prompts.promptid, tests.date DESC, prompts.promptid DESC
+      ) AS latest_prompts
+      ORDER BY date DESC, promptid DESC;
     `;
     response.data = result;
-    // console.log(result)
   } catch (error) {
     response.result = 1;
     response.message = lang("PromptsRetrievalFailure");
@@ -101,7 +109,6 @@ export async function getTests(req, res) {
     `;
 
     response.data.tests = tests;
-    // console.log(response.data)
     response.message = "Tests retrieved successfully.";
     res.json(response);
   } catch (error) {
@@ -111,4 +118,30 @@ export async function getTests(req, res) {
     response.error = error;
     res.status(500).json(response);
   }
+}
+
+export async function removePrompt(req, res) {
+  const response = {
+    result: 0,
+    data: {},
+    message: '',
+    error: '',
+    received: ''
+  };
+
+  try {
+    await sql`
+      DELETE FROM prompts
+      WHERE promptid = ${req.body.promptid} AND userid = ${req.userid};
+    `;
+    response.message = "Prompt successfully removed.";
+  } catch (error) {
+    console.log(error);
+    response.result = 1;
+    response.message = "Failed to remove prompt.";
+    response.error = error;
+    res.status(500).json(response);
+    return
+  }
+  res.json(response);
 }
