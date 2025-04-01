@@ -24,14 +24,22 @@ const swaggerDocument = JSON.parse(
 app.use('/doc', swaggerUi.serve, swaggerUi.setup(swaggerDocument));
 
 // -------------------- Middleware --------------------
-app.use(bodyParser.json()) // for parsing application/json
-app.use(cookieParser()); // enables reading cookies from `req.cookies`
+const allowedOrigins = [
+  "https://click-clack-lime.vercel.app",
+  "https://clickclack.aabuharrus.dev",
+  "https://api.clickclack.aabuharrus.dev", 
+  "http://localhost:3000"
+];
+
 app.use(cors({
-  origin: [
-    "https://click-clack-lime.vercel.app",
-    "https://clickclack.aabuharrus.dev/",
-    "http://localhost:3000"
-  ],
+  origin: (origin, callback) => {
+    // Allow requests with no origin (like mobile apps or curl requests)
+    if (!origin || allowedOrigins.includes(origin)) {
+      callback(null, origin);
+    } else {
+      callback(new Error("Not allowed by CORS"));
+    }
+  },
   methods: "GET, POST, PUT, DELETE, OPTIONS",
   allowedHeaders: ["Content-Type", "Authorization"],
   credentials: true,
@@ -40,15 +48,18 @@ app.use(cors({
 
 // Automatically respond to OPTIONS (preflight) requests
 app.use((req, res, next) => {
-    res.header("Access-Control-Allow-Origin", "https://clickclack.aabuharrus.dev/");
-    res.header("Access-Control-Allow-Credentials", "true");
-    res.header("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE, OPTIONS");
-    res.header("Access-Control-Allow-Headers", "Content-Type, Authorization");
-    if (req.method === "OPTIONS") {
-        res.sendStatus(204);
-    } else {
-        next();
-    }
+  const origin = req.headers.origin;
+  if (allowedOrigins.includes(origin)) {
+    res.header("Access-Control-Allow-Origin", origin);
+  }
+  res.header("Access-Control-Allow-Credentials", "true");
+  res.header("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE, OPTIONS");
+  res.header("Access-Control-Allow-Headers", "Content-Type, Authorization");
+  if (req.method === "OPTIONS") {
+    res.sendStatus(204);
+  } else {
+    next();
+  }
 });
 
 // -------------------- Begin endpoints --------------------
