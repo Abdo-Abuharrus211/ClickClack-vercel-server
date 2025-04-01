@@ -24,7 +24,6 @@ const swaggerDocument = JSON.parse(
 app.use('/doc', swaggerUi.serve, swaggerUi.setup(swaggerDocument));
 
 // -------------------- Middleware --------------------
-// -------------------- Middleware --------------------
 app.use(bodyParser.json()) // for parsing application/json
 app.use(cookieParser()); // enables reading cookies from `req.cookies`
 app.use((req, res, next) => { // CORS
