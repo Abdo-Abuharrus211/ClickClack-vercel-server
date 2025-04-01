@@ -24,6 +24,8 @@ const swaggerDocument = JSON.parse(
 app.use('/doc', swaggerUi.serve, swaggerUi.setup(swaggerDocument));
 
 // -------------------- Middleware --------------------
+app.use(bodyParser.json()) // for parsing application/json
+app.use(cookieParser()); // enables reading cookies from `req.cookies`
 const allowedOrigins = [
   "https://click-clack-lime.vercel.app",
   "https://clickclack.aabuharrus.dev",
