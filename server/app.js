@@ -29,6 +29,7 @@ app.use(cookieParser()); // enables reading cookies from `req.cookies`
 app.use(cors({
   origin: [
     "https://click-clack-lime.vercel.app",
+    "https://clickclack.aabuharrus.dev/",
     "http://localhost:3000"
   ],
   methods: "GET, POST, PUT, DELETE, OPTIONS",

@@ -146,7 +146,7 @@ export async function login(req, res) {
   const token = jwt.sign({ userid: user.userid, isAdmin: user.role == "admin" }, SECRET_KEY, { expiresIn: "24h" });
   response.message = lang("LoginSuccess");
   setJWTCookie(res, token)
-
+  console.log(`Login server func📦📦📦 ${res}`)
   res.json(response);
 }
 
@@ -252,6 +252,7 @@ function setJWTCookie(res, token) {
     httpOnly: true,
     secure: process.env.ENVIRONMENT !== 'dev',
     sameSite: 'none',
+    domain: '.aabuharrus.dev',
     path: '/',
     maxAge: 86400000 // 24 hours
   });
