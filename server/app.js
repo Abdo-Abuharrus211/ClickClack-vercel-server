@@ -27,9 +27,12 @@ app.use('/doc', swaggerUi.serve, swaggerUi.setup(swaggerDocument));
 app.use(bodyParser.json()) // for parsing application/json
 app.use(cookieParser()); // enables reading cookies from `req.cookies`
 app.use(cors({
-  origin: "https://click-clack-lime.vercel.app",
+  origin: [
+    "https://click-clack-lime.vercel.app",
+    "http://localhost:3000"
+  ],
   methods: "GET, POST, PUT, DELETE, OPTIONS",
-  allowedHeaders: "Content-Type, Authorization",
+  allowedHeaders: ["Content-Type", "Authorization"],
   credentials: true,
   exposedHeaders: ["Set-Cookie"]
 }));
