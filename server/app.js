@@ -10,11 +10,11 @@ import swaggerUi from 'swagger-ui-express';
 import fs from 'fs';
 import path from 'path';
 import { fileURLToPath } from 'url';
+import cors from 'cors';
 
 const app = express();
 const port = 3001;
 const API_PREFIX = "/api/v1";
-
 
 // const swaggerDocument = JSON.parse(fs.readFileSync('swagger-output.json', 'utf-8'));
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
@@ -26,19 +26,21 @@ app.use('/doc', swaggerUi.serve, swaggerUi.setup(swaggerDocument));
 // -------------------- Middleware --------------------
 app.use(bodyParser.json()) // for parsing application/json
 app.use(cookieParser()); // enables reading cookies from `req.cookies`
-app.use((req, res, next) => { // CORS
-  res.header("Access-Control-Allow-Origin", "https://click-clack-lime.vercel.app"); // Allow all origins (*), change for production
-  res.header("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE, OPTIONS"); // Allowed methods
-  res.header("Access-Control-Allow-Headers", "Content-Type, Authorization"); // Allowed headers
-  res.header("Access-Control-Allow-Credentials", "true"); // Allow credentials (cookies, Authorization header)
-  res.header("Access-Control-Expose-Headers", "Set-Cookie"); // Expose Set-Cookie header
+app.use(cors({
+  origin: "https://click-clack-lime.vercel.app",
+  methods: "GET, POST, PUT, DELETE, OPTIONS",
+  allowedHeaders: "Content-Type, Authorization",
+  credentials: true,
+  exposedHeaders: ["Set-Cookie"]
+}));
 
-  // Automatically respond to OPTIONS (preflight) requests
+// Automatically respond to OPTIONS (preflight) requests
+app.use((req, res, next) => {
   if (req.method === "OPTIONS") {
-    res.header(204);
+    res.sendStatus(204);
+  } else {
+    next();
   }
-
-  next();
 });
 
 // -------------------- Begin endpoints --------------------
