@@ -252,7 +252,7 @@ function setJWTCookie(res, token) {
     httpOnly: true,
     secure: process.env.ENVIRONMENT !== 'dev',
     sameSite: 'none',
-    domain: 'click-clack-vercel-server.vercel.app',
+    domain: '.vercel.app',
     path: '/',
     maxAge: 86400000 // 24 hours
   });
