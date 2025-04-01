@@ -251,7 +251,7 @@ function setJWTCookie(res, token) {
   res.cookie("token", token, {
     httpOnly: true,
     secure: process.env.ENVIRONMENT !== 'dev',
-    sameSite: 'none',
+    sameSite: 'None',
     domain: '.aabuharrus.dev',
     path: '/',
     maxAge: 86400000 // 24 hours
