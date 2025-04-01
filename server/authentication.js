@@ -245,27 +245,17 @@ export function adminMiddleware(req, res, next) {
 //   });
 // }
 
-// function setJWTCookie(res, token) {
-//   console.log("Setting Token 🪙🪙🪙");
-//   console.log(`Secure mode: ${process.env.ENVIRONMENT !== 'dev'}`);
-//   res.cookie("token", token, {
-//     httpOnly: true,
-//     secure: process.env.ENVIRONMENT !== "dev",
-//     maxAge: 86400000 // 24 hours
-//   });
-// }
-
 function setJWTCookie(res, token) {
   console.log("Setting Token 🪙🪙🪙");
   console.log(`Secure mode: ${process.env.ENVIRONMENT !== 'dev'}`);
-  res.cookie('token', token, {
+  res.cookie("token", token, {
     httpOnly: true,
     secure: process.env.ENVIRONMENT !== 'dev',
-    sameSite: 'None', //  a must for cross origin cookies
+    sameSite: 'none',
     path: '/',
-    domain: 'click-clack-vercel-server.vercel.app',
-    partitioned: true,
-    maxAge: 86400000, // milliseconds
+    domain: 'vercel.app',
+    maxAge: 86400000 // 24 hours
   });
 }
+
 

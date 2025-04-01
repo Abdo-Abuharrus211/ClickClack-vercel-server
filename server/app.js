@@ -32,6 +32,7 @@ app.use((req, res, next) => { // CORS
   res.header("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE, OPTIONS"); // Allowed methods
   res.header("Access-Control-Allow-Headers", "Content-Type, Authorization"); // Allowed headers
   res.header("Access-Control-Allow-Credentials", "true"); // Allow credentials (cookies, Authorization header)
+  res.header("Access-Control-Expose-Headers", "Set-Cookie"); // Expose Set-Cookie header
 
   // Automatically respond to OPTIONS (preflight) requests
   if (req.method === "OPTIONS") {
