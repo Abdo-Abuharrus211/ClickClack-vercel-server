@@ -29,7 +29,7 @@ app.use(cookieParser()); // enables reading cookies from `req.cookies`
 app.use((req, res, next) => { // CORS
   res.header("Access-Control-Allow-Origin", "https://click-clack-lime.vercel.app"); // Allow all origins (*), change for production
   res.header("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE, OPTIONS"); // Allowed methods
-  // res.header("Access-Control-Allow-Headers", "Content-Type, Authorization"); // Allowed headers
+  res.header("Access-Control-Allow-Headers", "Content-Type, Authorization"); // Allowed headers
   res.header("Access-Control-Allow-Credentials", "true"); // Allow credentials (cookies, Authorization header)
   res.header("Access-Control-Expose-Headers", "Set-Cookie");
 
