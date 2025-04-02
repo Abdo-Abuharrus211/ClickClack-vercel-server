@@ -32,7 +32,7 @@ app.use(
   swaggerUi.serve,
   swaggerUi.setup(swaggerDocument, {
     swaggerOptions: {
-      url: '/click-clack/api/swagger-output.json', // or wherever your spec lives
+      url: '/ClickClack-vercel-server/server/swagger-output.json', // or wherever your spec lives
     },
   })
 );
