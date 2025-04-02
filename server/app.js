@@ -26,21 +26,15 @@ const swaggerDocument = JSON.parse(
   fs.readFileSync(path.join(__dirname, 'swagger-output.json'), 'utf-8')
 );
 app.use(
-  '/doc',
+  '/docs',
   swaggerUi.serve,
-  swaggerUi.setup(swaggerDocument)
+  swaggerUi.setup(swaggerDocument, {
+    customCss:
+      '.swagger-ui .opblock .opblock-summary-path-description-wrapper { align-items: center; display: flex; flex-wrap: wrap; gap: 0 10px; padding: 0 10px; width: 100%; }',
+    customCssUrl: CSS_URL,
+  }),
 );
 
-// const swaggerDocument = JSON.parse(fs.readFileSync('./swagger-output.json', 'utf-8'));
-// app.use(
-//   '/doc',
-//   swaggerUi.serve,
-//   swaggerUi.setup(swaggerDocument, {
-//     swaggerOptions: {
-//       url: './swagger-output.json', // or wherever your spec lives
-//     },
-//   })
-// );
 
 // -------------------- Middleware --------------------
 app.use(bodyParser.json()) // for parsing application/json
