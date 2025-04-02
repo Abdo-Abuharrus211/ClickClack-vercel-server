@@ -12,7 +12,7 @@ import { fileURLToPath } from 'url';
 import cors from 'cors';
 import sql from './db.js';
 import * as endpoints from './endpoints.js'
-// import swaggerUi from 'swagger-ui-express';
+import swaggerUi from 'swagger-ui-express';
 import swaggerUiDist from 'swagger-ui-dist';
 
 
@@ -20,24 +20,19 @@ const app = express();
 const port = 3001;
 const API_PREFIX = "/api/v1";
 
-const swaggerUIPath = require("swagger-ui-express")
-const swaggerJsonFile =  require("./swagger-output.json")
-app.use("/doc", swaggerUIPath.serve,swaggerUIPath.setup(swaggerJsonFile))
-
-
-// const __dirname = path.dirname(fileURLToPath(import.meta.url));
-// const swaggerDocument = JSON.parse(
-//   fs.readFileSync(path.join(__dirname, 'swagger-output.json'), 'utf-8')
-// );
-// app.use(
-//   '/doc',
-//   swaggerUi.serve,
-//   swaggerUi.setup(swaggerDocument, {
-//     swaggerOptions: {
-//       url: '/ClickClack-vercel-server/server/swagger-output.json', // or wherever your spec lives
-//     },
-//   })
-// );
+const __dirname = path.dirname(fileURLToPath(import.meta.url));
+const swaggerDocument = JSON.parse(
+  fs.readFileSync(path.join(__dirname, 'swagger-output.json'), 'utf-8')
+);
+app.use(
+  '/doc',
+  swaggerUi.serve,
+  swaggerUi.setup(swaggerDocument, {
+    swaggerOptions: {
+      url: path.join(__dirname, 'swagger-output.json'),
+    },
+  })
+);
 
 // const swaggerDocument = JSON.parse(fs.readFileSync('./swagger-output.json', 'utf-8'));
 // app.use(
