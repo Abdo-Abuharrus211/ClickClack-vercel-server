@@ -27,11 +27,14 @@ const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const swaggerDocument = JSON.parse(
   fs.readFileSync(path.join(__dirname, 'swagger-output.json'), 'utf-8')
 );
-// app.use('/doc', express.static(swaggerUiDist.getAbsoluteFSPath()));
 app.use(
   '/doc',
   swaggerUi.serve,
-  swaggerUi.setup(swaggerDocument)
+  swaggerUi.setup(swaggerDocument, {
+    swaggerOptions: {
+      url: '/click-clack/api/swagger-output.json', // or wherever your spec lives
+    },
+  })
 );
 
 // const swaggerDocument = JSON.parse(fs.readFileSync('./swagger-output.json', 'utf-8'));
