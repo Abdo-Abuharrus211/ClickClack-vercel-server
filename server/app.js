@@ -20,28 +20,18 @@ const app = express();
 const port = 3001;
 const API_PREFIX = "/api/v1";
 
-const swaggerDocument = JSON.parse(fs.readFileSync('./click-clack/server/swagger-output.json', 'utf-8'));
+
+
+const __dirname = path.dirname(fileURLToPath(import.meta.url));
+const swaggerDocument = JSON.parse(
+  fs.readFileSync(path.join(__dirname, 'swagger-output.json'), 'utf-8')
+);
+app.use('/doc', express.static(swaggerUiDist.getAbsoluteFSPath()));
 app.use(
   '/doc',
   swaggerUi.serve,
-  swaggerUi.setup(swaggerDocument, {
-    swaggerOptions: {
-      url: './click-clack/server/swagger-output.json', // or wherever your spec lives
-    },
-  })
+  swaggerUi.setup(swaggerDocument)
 );
-
-
-// const __dirname = path.dirname(fileURLToPath(import.meta.url));
-// const swaggerDocument = JSON.parse(
-//   fs.readFileSync(path.join(__dirname, 'swagger-output.json'), 'utf-8')
-// );
-// app.use('/doc', express.static(swaggerUiDist.getAbsoluteFSPath()));
-// app.use(
-//   '/doc',
-//   swaggerUi.serve,
-//   swaggerUi.setup(swaggerDocument)
-// );
 
 // const swaggerDocument = JSON.parse(fs.readFileSync('./swagger-output.json', 'utf-8'));
 // app.use(
