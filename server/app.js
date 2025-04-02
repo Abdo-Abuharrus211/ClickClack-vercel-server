@@ -21,6 +21,7 @@ const port = 3001;
 const API_PREFIX = "/api/v1";
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
+console.log(`The Directory ${__dirname}`)
 const swaggerDocument = JSON.parse(
   fs.readFileSync(path.join(__dirname, 'swagger-output.json'), 'utf-8')
 );
