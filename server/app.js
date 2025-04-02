@@ -22,11 +22,12 @@ const API_PREFIX = "/api/v1";
 
 
 
+
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const swaggerDocument = JSON.parse(
   fs.readFileSync(path.join(__dirname, 'swagger-output.json'), 'utf-8')
 );
-app.use('/doc', express.static(swaggerUiDist.getAbsoluteFSPath()));
+// app.use('/doc', express.static(swaggerUiDist.getAbsoluteFSPath()));
 app.use(
   '/doc',
   swaggerUi.serve,
