@@ -23,6 +23,7 @@
     "nodemon": "^3.1.9",
     "postgres": "^3.4.5",
     "swagger-autogen": "^2.23.7",
+    "swagger-ui": "^5.20.2",
     "swagger-ui-dist": "^5.20.2",
     "swagger-ui-express": "^5.0.1"
   },
