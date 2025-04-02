@@ -32,13 +32,13 @@ const API_PREFIX = "/api/v1";
 //   swaggerUi.setup(swaggerDocument)
 // );
 
-const swaggerDocument = JSON.parse(fs.readFileSync('swagger-output.json', 'utf-8'));
+const swaggerDocument = JSON.parse(fs.readFileSync('./swagger-output.json', 'utf-8'));
 app.use(
   '/doc',
   swaggerUi.serve,
   swaggerUi.setup(swaggerDocument, {
     swaggerOptions: {
-      url: 'swagger-output.json', // or wherever your spec lives
+      url: './swagger-output.json', // or wherever your spec lives
     },
   })
 );
