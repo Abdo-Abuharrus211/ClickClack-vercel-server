@@ -27,6 +27,7 @@ const swaggerDocument = JSON.parse(
   fs.readFileSync(path.join(__dirname, 'swagger-output.json'), 'utf-8')
 );
 
+// Deploying Swagger docs
 app.use(
   '/docs',
   swaggerUi.serve,
