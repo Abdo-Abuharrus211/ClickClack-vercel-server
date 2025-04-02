@@ -28,11 +28,7 @@ const swaggerDocument = JSON.parse(
 app.use(
   '/doc',
   swaggerUi.serve,
-  swaggerUi.setup(swaggerDocument, {
-    swaggerOptions: {
-      url: path.join(__dirname, 'swagger-output.json'),
-    },
-  })
+  swaggerUi.setup(swaggerDocument)
 );
 
 // const swaggerDocument = JSON.parse(fs.readFileSync('./swagger-output.json', 'utf-8'));
