@@ -14,8 +14,6 @@ import cors from 'cors';
 import sql from './db.js';
 import * as endpoints from './endpoints.js'
 import swaggerUiDist from 'swagger-ui-dist';
-import swaggerUi from 'swagger-ui-express';
-
 
 
 const app = express();
