@@ -20,7 +20,18 @@ const app = express();
 const port = 3001;
 const API_PREFIX = "/api/v1";
 
-// const swaggerDocument = JSON.parse(fs.readFileSync('swagger-output.json', 'utf-8'));
+const swaggerDocument = JSON.parse(fs.readFileSync('./click-clack/server/swagger-output.json', 'utf-8'));
+app.use(
+  '/doc',
+  swaggerUi.serve,
+  swaggerUi.setup(swaggerDocument, {
+    swaggerOptions: {
+      url: './click-clack/server/swagger-output.json', // or wherever your spec lives
+    },
+  })
+);
+
+
 // const __dirname = path.dirname(fileURLToPath(import.meta.url));
 // const swaggerDocument = JSON.parse(
 //   fs.readFileSync(path.join(__dirname, 'swagger-output.json'), 'utf-8')
@@ -32,16 +43,16 @@ const API_PREFIX = "/api/v1";
 //   swaggerUi.setup(swaggerDocument)
 // );
 
-const swaggerDocument = JSON.parse(fs.readFileSync('./swagger-output.json', 'utf-8'));
-app.use(
-  '/doc',
-  swaggerUi.serve,
-  swaggerUi.setup(swaggerDocument, {
-    swaggerOptions: {
-      url: './swagger-output.json', // or wherever your spec lives
-    },
-  })
-);
+// const swaggerDocument = JSON.parse(fs.readFileSync('./swagger-output.json', 'utf-8'));
+// app.use(
+//   '/doc',
+//   swaggerUi.serve,
+//   swaggerUi.setup(swaggerDocument, {
+//     swaggerOptions: {
+//       url: './swagger-output.json', // or wherever your spec lives
+//     },
+//   })
+// );
 
 // -------------------- Middleware --------------------
 app.use(bodyParser.json()) // for parsing application/json
