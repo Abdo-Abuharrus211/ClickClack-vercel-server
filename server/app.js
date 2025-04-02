@@ -13,6 +13,7 @@ import { fileURLToPath } from 'url';
 import cors from 'cors';
 import sql from './db.js';
 import * as endpoints from './endpoints.js'
+import swaggerUiDist from 'swagger-ui-dist';
 
 
 const app = express();
@@ -24,14 +25,11 @@ const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const swaggerDocument = JSON.parse(
   fs.readFileSync(path.join(__dirname, 'swagger-output.json'), 'utf-8')
 );
+app.use('/doc', express.static(swaggerUiDist.getAbsoluteFSPath()));
 app.use(
   '/doc',
   swaggerUi.serve,
-  swaggerUi.setup(swaggerDocument, {
-    swaggerOptions: {
-      url: '/click-clack/api/swagger-output.json', // or wherever your spec lives
-    },
-  })
+  swaggerUi.setup(swaggerDocument)
 );
 
 // -------------------- Middleware --------------------

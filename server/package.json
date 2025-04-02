@@ -1,11 +1,11 @@
 {
   "name": "click-clack-vercel-server",
   "version": "1.0.0",
-  "main": "index.js",
+  "main": "app.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "node app.js",
-    "dev": "nodemon index.js",
+    "dev": "nodemon app.js",
     "swagger": "node swagger.js"
   },
   "author": "",
@@ -23,6 +23,7 @@
     "nodemon": "^3.1.9",
     "postgres": "^3.4.5",
     "swagger-autogen": "^2.23.7",
+    "swagger-ui-dist": "^5.20.2",
     "swagger-ui-express": "^5.0.1"
   },
   "type": "module",
