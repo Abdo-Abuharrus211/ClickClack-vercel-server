@@ -8,8 +8,12 @@
     ],
     "routes": [
         {
-            "src": "/(.*)",
+            "src": "/docs/(.*)",
             "dest": "app.js"
+        },
+        {
+            "src": "/swagger-ui/(.*)",
+            "dest": "/node_modules/swagger-ui-dist/$1"
         }
     ]
 }
