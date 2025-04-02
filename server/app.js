@@ -25,18 +25,18 @@ console.log(`The Directory ${__dirname}`)
 const swaggerDocument = JSON.parse(
   fs.readFileSync(path.join(__dirname, 'swagger-output.json'), 'utf-8')
 );
-cssUrls: [
-  'https://cdnjs.cloudflare.com/ajax/libs/swagger-ui/4.15.5/swagger-ui.min.css',
-  'https://cdnjs.cloudflare.com/ajax/libs/swagger-ui/4.15.5/swagger-ui-standalone-preset.min.css',
-  'https://cdnjs.cloudflare.com/ajax/libs/swagger-ui/4.15.5/swagger-ui.css',
-  ],
+
 app.use(
   '/docs',
   swaggerUi.serve,
   swaggerUi.setup(swaggerDocument, {
     customCss:
       '.swagger-ui .opblock .opblock-summary-path-description-wrapper { align-items: center; display: flex; flex-wrap: wrap; gap: 0 10px; padding: 0 10px; width: 100%; }',
-    customCssUrl: cssUrls,
+    customCssUrl: [
+      'https://cdnjs.cloudflare.com/ajax/libs/swagger-ui/4.15.5/swagger-ui.min.css',
+      'https://cdnjs.cloudflare.com/ajax/libs/swagger-ui/4.15.5/swagger-ui-standalone-preset.min.css',
+      'https://cdnjs.cloudflare.com/ajax/libs/swagger-ui/4.15.5/swagger-ui.css',
+      ],
   }),
 );
 
