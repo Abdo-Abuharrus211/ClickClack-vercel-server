@@ -14,6 +14,7 @@ import sql from './db.js';
 import * as endpoints from './endpoints.js'
 import swaggerUi from 'swagger-ui-express';
 import swaggerUiDist from 'swagger-ui-dist';
+import { url } from 'inspector';
 
 
 const app = express();
@@ -30,13 +31,11 @@ app.use(
   '/docs',
   swaggerUi.serve,
   swaggerUi.setup(swaggerDocument, {
-    customCss:
-      '.swagger-ui .opblock .opblock-summary-path-description-wrapper { align-items: center; display: flex; flex-wrap: wrap; gap: 0 10px; padding: 0 10px; width: 100%; }',
-    customCssUrl: [
-      'https://cdnjs.cloudflare.com/ajax/libs/swagger-ui/4.15.5/swagger-ui.min.css',
-      'https://cdnjs.cloudflare.com/ajax/libs/swagger-ui/4.15.5/swagger-ui-standalone-preset.min.css',
-      'https://cdnjs.cloudflare.com/ajax/libs/swagger-ui/4.15.5/swagger-ui.css',
-      ],
+    swaggerOptions: {
+      url: '/server/swagger-output.json',
+      customCssUrl: 'https://cdnjs.cloudflare.com/ajax/libs/swagger-ui/4.15.5/swagger-ui.css',
+      customCss: '.swagger-ui .opblock .opblock-summary-path-description-wrapper { align-items: center; display: flex; flex-wrap: wrap; gap: 0 10px; padding: 0 10px; width: 100%; }',
+    },
   }),
 );
 
